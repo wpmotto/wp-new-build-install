@@ -4,6 +4,9 @@
 set -e
 
 # Set variables
+RED='\033[0;31m'
+NC='\033[0m' # No Color
+
 projectslug=${PWD##*/} 
 projecttld=".test"
 projecturl="$projectslug$projecttld"
@@ -35,7 +38,7 @@ wp core download
 wp config create --dbname=$wpdbname --dbuser=$wpdbuser --dbpass=$wpdbpass
 wp core install --url=$projecturl --title="$projecttitle" --admin_user=admin --admin_email="$authorname" --admin_password=admin
 
-echo "Username: admin / Password: admin"
+echo -e "Username: ${RED}admin${NC} / Password: ${RED}admin${NC}"
 
 mv wp-content wp-content.fresh
 git clone git@github.com:wpmotto/wp-fresh-skeleton.git wp-content
@@ -60,10 +63,14 @@ composer install
 cd $wpcontentdir
 mkdir themes
 cd themes
-curl -sS https://github.com/wpmotto/sage/archive/master.zip > $projectslug.zip
-unzip "$projectslug.zip"
+curl -LSs https://github.com/wpmotto/sage/archive/master.zip > sage-master.zip
+unzip sage-master.zip
+mv sage-master $projectslug
+rm sage-master.zip
 cd $projectslug
+composer install
 yarn && yarn build
+wp theme activate $projectslug
 
 # Cleanup
 cd $wprootdir
