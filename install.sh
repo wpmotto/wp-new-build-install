@@ -36,7 +36,7 @@ rm -rf ./README.md ./.git
 
 wp core download
 wp config create --dbname=$wpdbname --dbuser=$wpdbuser --dbpass=$wpdbpass
-wp core install --url=$projecturl --title="$projecttitle" --admin_user=admin --admin_email="$authorname" --admin_password=admin
+wp core install --url=$projecturl --title="$projecttitle" --admin_user=admin --admin_email=$authoremail --admin_password=admin
 
 echo -e "Username: ${RED}admin${NC} / Password: ${RED}admin${NC}"
 
