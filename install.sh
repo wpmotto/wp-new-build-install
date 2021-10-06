@@ -28,23 +28,18 @@ read wpdbuser
 echo "Enter your WordPress database password:"
 read wpdbpass
 
-echo "This project uses a private key for the Metabox package. Please enter it now:"
-read METABOX_KEY
-
-# Cleanup initial repo
-rm -rf ./README.md ./.git
-
 wp core download
-wp config create --dbname=$wpdbname --dbuser=$wpdbuser --dbpass=$wpdbpass
+wp config create --dbname=$wpdbname --dbuser=$wpdbuser --dbpass=$wpdbpass --dbhost=127.0.0.1
 wp core install --url=$projecturl --title="$projecttitle" --admin_user=admin --admin_email=$authoremail --admin_password=admin
 
 echo -e "Username: ${RED}admin${NC} / Password: ${RED}admin${NC}"
 
-mv wp-content wp-content.fresh
-git clone git@github.com:wpmotto/wp-fresh-skeleton.git wp-content
+wget https://raw.githubusercontent.com/wpmotto/wp.ignore/master/.gitignore -O wp-content/.gitignore
+echo "!/themes/$projectslug" >> wp-content/.gitignore
+wget https://raw.githubusercontent.com/wpmotto/wp-sync-cli/master/current/migrate.sh -O wp-content/migrate.sh
 
 # Setup MU-PLUGINS
-cd wp-content/mu-plugins
+mkdir wp-content/mu-plugins
 
 read -p "Will this reside on a Kinsta server? (y/n)" -n 1 -r
 if [[ ! $REPLY =~ ^[Yy]$ ]]
@@ -56,12 +51,8 @@ unzip kinsta-mu-plugins.zip
 rm kinsta-mu-plugins.zip
 fi
 
-cd data-structure
-composer install
-
 # Install SAGE
 cd $wpcontentdir
-mkdir themes
 cd themes
 curl -LSs https://github.com/wpmotto/sage/archive/master.zip > sage-master.zip
 unzip sage-master.zip
@@ -72,6 +63,6 @@ composer install
 yarn && yarn build
 wp theme activate $projectslug
 
-# Cleanup
-cd $wprootdir
-rm install.sh
+# Cleanup initial repo
+rm -rf ./README.md ./.git install.sh
+echo "# $projecttitle" > "$wpcontentdir/README.md"
