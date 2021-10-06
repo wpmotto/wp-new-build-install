@@ -41,7 +41,7 @@ wget https://raw.githubusercontent.com/wpmotto/wp-sync-cli/master/current/migrat
 # Setup MU-PLUGINS
 mkdir wp-content/mu-plugins
 
-read -p "Will this reside on a Kinsta server? (y/n)" -n 1 -r
+read -p "${RED}Will this reside on a Kinsta server? (y/n)${NC}" -n 1 -r
 if [[ ! $REPLY =~ ^[Yy]$ ]]
 kinstaserver=false
 then
