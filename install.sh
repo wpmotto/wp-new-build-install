@@ -31,6 +31,7 @@ read wpdbpass < /dev/tty
 echo "Enter your WordPress ACF License Pro Key:"
 read acfkey < /dev/tty
 
+read -p "Will this reside on a Kinsta server? (y/n)" -n 1 -r < /dev/tty
 
 wp core download
 wp config create --dbname=$wpdbname --dbuser=$wpdbuser --dbpass=$wpdbpass --dbhost=127.0.0.1  --extra-php <<PHP
@@ -50,7 +51,6 @@ wget https://raw.githubusercontent.com/wpmotto/wp-sync-cli/master/current/migrat
 mkdir wp-content/mu-plugins
 cd wp-content/mu-plugins
 
-read -p "Will this reside on a Kinsta server? (y/n)" -n 1 -r
 if [[ ! $REPLY =~ ^[Yy]$ ]]
 kinstaserver=false
 then
