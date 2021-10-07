@@ -17,19 +17,19 @@ wpcontentdir="$wprootdir/wp-content"
 
 # # Collect project info
 echo "What is the public facing title of your project?"
-read projecttitle
+read projecttitle < /dev/tty
 
 echo "Enter your WordPress database name:"
-read wpdbname
+read wpdbname < /dev/tty
 
 echo "Enter your WordPress database user:"
-read wpdbuser
+read wpdbuser < /dev/tty
 
 echo "Enter your WordPress database password:"
-read wpdbpass
+read wpdbpass < /dev/tty
 
 echo "Enter your WordPress ACF License Pro Key:"
-read acfkey
+read acfkey < /dev/tty
 
 
 wp core download
