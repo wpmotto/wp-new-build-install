@@ -31,8 +31,6 @@ read wpdbpass < /dev/tty
 echo "Enter your WordPress ACF License Pro Key:"
 read acfkey < /dev/tty
 
-read -p "Will this reside on a Kinsta server? (y/n)" -n 1 -r < /dev/tty
-
 wp core download
 wp config create --dbname=$wpdbname --dbuser=$wpdbuser --dbpass=$wpdbpass --dbhost=127.0.0.1  --extra-php <<PHP
 define( 'WP_DEBUG', true );
@@ -51,14 +49,10 @@ wget https://raw.githubusercontent.com/wpmotto/wp-sync-cli/master/current/migrat
 mkdir wp-content/mu-plugins
 cd wp-content/mu-plugins
 
-if [[ ! $REPLY =~ ^[Yy]$ ]]
-kinstaserver=false
-then
-kinstaserver=true
+## Install Kinsta mu plugin
 wget https://kinsta.com/kinsta-tools/kinsta-mu-plugins.zip
 unzip kinsta-mu-plugins.zip
 rm kinsta-mu-plugins.zip
-fi
 
 # Install SAGE
 cd $wpcontentdir
