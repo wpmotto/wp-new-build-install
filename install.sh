@@ -48,13 +48,14 @@ wget https://raw.githubusercontent.com/wpmotto/wp-sync-cli/master/current/migrat
 
 # Setup MU-PLUGINS
 mkdir wp-content/mu-plugins
+cd wp-content/mu-plugins
 
-read -p "${RED}Will this reside on a Kinsta server? (y/n)${NC}" -n 1 -r
+read -p "Will this reside on a Kinsta server? (y/n)" -n 1 -r
 if [[ ! $REPLY =~ ^[Yy]$ ]]
 kinstaserver=false
 then
 kinstaserver=true
-curl -sS https://kinsta.com/kinsta-tools/kinsta-mu-plugins.zip > kinsta-mu-plugins.zip
+wget https://kinsta.com/kinsta-tools/kinsta-mu-plugins.zip
 unzip kinsta-mu-plugins.zip
 rm kinsta-mu-plugins.zip
 fi
@@ -75,7 +76,7 @@ wp theme activate $projectslug
 wp plugin install formidable --activate
 wp plugin install seo-by-rank-math --activate
 wp plugin install https://github.com/roots/soil/archive/refs/heads/main.zip --activate
-[ ! -z "$acfkey" ] && wp plugin install "https://connect.advancedcustomfields.com/v2/plugins/download\?p\=pro\&k\=$acfkey" --activate
+[ ! -z "$acfkey" ] && wp plugin install "https://connect.advancedcustomfields.com/v2/plugins/download?p=pro&k=$acfkey" --activate
 
 # Cleanup initial repo
 cd $wprootdir
