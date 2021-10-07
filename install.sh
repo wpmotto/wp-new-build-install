@@ -72,13 +72,11 @@ composer install
 yarn && yarn build
 wp theme activate $projectslug
 
+# Init a Readme
+echo "# $projecttitle" > "$wpcontentdir/README.md"
+
 # Install Plugins
 wp plugin install formidable --activate
 wp plugin install seo-by-rank-math --activate
 wp plugin install https://github.com/roots/soil/archive/refs/heads/main.zip --activate
 [ ! -z "$acfkey" ] && wp plugin install "https://connect.advancedcustomfields.com/v2/plugins/download?p=pro&k=$acfkey" --activate
-
-# Cleanup initial repo
-cd $wprootdir
-rm -rf ./README.md ./.git install.sh
-echo "# $projecttitle" > "$wpcontentdir/README.md"
