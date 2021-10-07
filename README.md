@@ -16,3 +16,9 @@ Although this script will set your project up for versioning, it doesn't init th
 
 ## Further Setup
 You'll need to update the URL for browser syncing if you are to use `yarn start` in your webpack file `.browserSync('https://sandbox.test');`
+
+### Sample Data
+It's usually useful to begin development with some sample data. Use the following to generate some content. 
+
+- Install [wp-cli faker](https://github.com/Yoast/wp-cli-faker) `wp package install git@github.com:Yoast/wp-cli-faker.git`
+- `wp faker core content`
