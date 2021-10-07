@@ -29,7 +29,11 @@ echo "Enter your WordPress database password:"
 read wpdbpass
 
 wp core download
-wp config create --dbname=$wpdbname --dbuser=$wpdbuser --dbpass=$wpdbpass --dbhost=127.0.0.1
+wp config create --dbname=$wpdbname --dbuser=$wpdbuser --dbpass=$wpdbpass --dbhost=127.0.0.1  --extra-php <<PHP
+define( 'WP_DEBUG', true );
+define( 'WP_DEBUG_LOG', true );
+PHP
+
 wp core install --url=$projecturl --title="$projecttitle" --admin_user=admin --admin_email=$authoremail --admin_password=admin
 
 echo -e "Username: ${RED}admin${NC} / Password: ${RED}admin${NC}"
