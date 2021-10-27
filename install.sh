@@ -57,7 +57,7 @@ rm kinsta-mu-plugins.zip
 # Install SAGE
 cd $wpcontentdir
 cd themes
-curl -LSs https://github.com/wpmotto/sage/archive/master.zip > sage-master.zip
+curl -LSs https://github.com/wpmotto/wp-starter-theme/archive/master.zip > sage-master.zip
 unzip sage-master.zip
 mv sage-master $projectslug
 rm sage-master.zip
